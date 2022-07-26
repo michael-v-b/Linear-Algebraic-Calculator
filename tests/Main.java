@@ -42,12 +42,12 @@ public class Main {
         String vectorMode = "";
         boolean output;
         System.out.println("In Vector Form?: y/n?");
-        while (!vectorMode.equals("y") || !vectorMode.equals("n") ||
-                !vectorMode.equals("yes") || !vectorMode.equals("no") ||
-                !vectorMode.equals("Y") || !vectorMode.equals("N")) {
+        while (!(vectorMode.equals("y") || vectorMode.equals("n") ||
+                vectorMode.equals("yes") || vectorMode.equals("no") ||
+                vectorMode.equals("Y") || vectorMode.equals("N"))) {
 
             vectorMode = sf.nextLine();
-            System.out.println("ouput found");
+            System.out.println("ouput found" + vectorMode);
         }
         if (vectorMode.equals("y") || vectorMode.equals("Y") || vectorMode.equals("yes")) {
             output = true;
@@ -138,8 +138,9 @@ public class Main {
                 } else {
                     System.out.print("" + matrix.get(i).coeff.toString() + " * ");
                 }
-                System.out.println("[" + matrix.get(j).getIndex(i) + "] ");
+                System.out.print("[" + matrix.get(j).getIndex(i) + "] ");
             }
+            System.out.println("");
         }
     }
 
