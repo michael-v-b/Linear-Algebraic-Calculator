@@ -3,28 +3,6 @@ public class Fraction {
     public Rint up;
     public Rint down;
 
-    Rint gcf(Rint a, Rint b) {
-        if (!a.radical && !b.radical) {
-            if (b.value == 0) {
-                return new Rint(a.radical, Math.abs(a.coeff), Math.abs(a.value));
-            } else {
-                return gcf(b, new Rint(false, a.value % b.value));
-            }
-        } else if (a.radical && b.radical) {
-            int tempCoeff = gcf(new Rint(false, a.coeff), new Rint(false, b.coeff)).value;
-            int tempValue = gcf(new Rint(false, a.value), new Rint(false, b.value)).value;
-            return new Rint(true, tempCoeff, tempValue);
-        }
-        Rint temp;
-        if (a.radical) {
-            temp = new Rint(false, a.coeff);
-            return gcf(temp, b);
-        } else {
-            temp = new Rint(false, b.coeff);
-            return gcf(temp, a);
-        }
-    }
-
     public Fraction(Fraction f) {
         up = f.up;
         down = f.down;
@@ -50,10 +28,35 @@ public class Fraction {
         down = i.down.multip(j.up);
     }
 
+    // returns fraction as double!
     public double getFract() {
         return (double) up.value / down.value;
     }
 
+    // returns greatest common factor
+    Rint gcf(Rint a, Rint b) {
+        if (!a.radical && !b.radical) {
+            if (b.value == 0) {
+                return new Rint(a.radical, Math.abs(a.coeff), Math.abs(a.value));
+            } else {
+                return gcf(b, new Rint(false, a.value % b.value));
+            }
+        } else if (a.radical && b.radical) {
+            int tempCoeff = gcf(new Rint(false, a.coeff), new Rint(false, b.coeff)).value;
+            int tempValue = gcf(new Rint(false, a.value), new Rint(false, b.value)).value;
+            return new Rint(true, tempCoeff, tempValue);
+        }
+        Rint temp;
+        if (a.radical) {
+            temp = new Rint(false, a.coeff);
+            return gcf(temp, b);
+        } else {
+            temp = new Rint(false, b.coeff);
+            return gcf(temp, a);
+        }
+    }
+
+    // simplifies
     public void simplify() {
         if (up.value == 0 || up.coeff == 0) {
             down.coeff = 0;
@@ -100,6 +103,7 @@ public class Fraction {
 
     }
 
+    // multiply fraction by fraction
     public Fraction multip(Fraction i) {
         Fraction output = new Fraction(this);
         output.up = up.multip(i.up);
@@ -107,12 +111,14 @@ public class Fraction {
         return output;
     }
 
+    // multiply fraction by Rint
     public Fraction multip(Rint i) {
         Fraction output = new Fraction(this);
         output.up = up.multip(i);
         return output;
     }
 
+    // divide fraction by fraction
     public Fraction divide(Fraction i) {
         Fraction output = new Fraction(this);
         output.up = up.multip(i.down);
@@ -121,6 +127,7 @@ public class Fraction {
         return output;
     }
 
+    // divide fraction by Rint
     public Fraction divide(Rint i) {
         Fraction output = new Fraction(this);
         output.up = up.multip(i);

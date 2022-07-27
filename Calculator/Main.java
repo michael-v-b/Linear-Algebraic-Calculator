@@ -47,7 +47,6 @@ public class Main {
                 vectorMode.equals("Y") || vectorMode.equals("N"))) {
 
             vectorMode = sf.nextLine();
-            System.out.println("ouput found" + vectorMode);
         }
         if (vectorMode.equals("y") || vectorMode.equals("Y") || vectorMode.equals("yes")) {
             output = true;
@@ -113,9 +112,10 @@ public class Main {
     // print matrix in output
     static void printMatrix(ArrayList<vector> matrix) {
         System.out.println("Matrix: ");
-        for (int i = 0; i < matrix.size(); i++) {
-            for (int j = 0; j < matrix.get(i).getSize(); j++) {
-                System.out.print("[" + matrix.get(j).getIndex(i) + "]");
+        for (int i = 0; i < matrix.get(i).getSize(); i++) {
+
+            for (int j = 0; j < matrix.size(); j++) {
+                System.out.print("[" + (matrix.get(j).coeff.multip(matrix.get(j).getIndex(i))) + "]");
             }
             System.out.println("");
         }
@@ -124,10 +124,14 @@ public class Main {
     // print matrix in vector format
     static void printMatrixVectorMode(ArrayList<vector> matrix) {
         System.out.println("Matrix: ");
+
         // go through matrix as normal
         for (int i = 0; i < matrix.get(0).getSize(); i++) {
-            for (int j = 0; j < matrix.get(i).getSize(); j++) {
 
+            // simplify matrix
+
+            for (int j = 0; j < matrix.size(); j++) {
+                matrix.get(j).simplify();
                 // if not in the middle add spaces to compensate for coeff
                 // otherwise write coeff
                 if (i != matrix.get(0).getSize() / 2) {
@@ -136,7 +140,7 @@ public class Main {
                         System.out.print(" ");
                     }
                 } else {
-                    System.out.print("" + matrix.get(i).coeff.toString() + " * ");
+                    System.out.print("" + matrix.get(j).coeff.toString() + " * ");
                 }
                 System.out.print("[" + matrix.get(j).getIndex(i) + "] ");
             }
