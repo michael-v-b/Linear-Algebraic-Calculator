@@ -1,6 +1,8 @@
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Main {
 
@@ -162,20 +164,33 @@ public class Main {
 
     // main method
     public static void main(String args[]) {
+        File inputFile = new File(args[0]);
         Scanner sf;
         int tempX;
         int tempY;
-        sf = new Scanner(System.in);
+
+        if (args.length == 2) {
+            sf = new Scanner(System.in);
+        } else {
+            try {
+                sf = new Scanner(inputFile);
+            } catch (FileNotFoundException e) {
+                System.out.println("file not found");
+                sf = new Scanner(System.in);
+            }
+        }
 
         ArrayList<vector> m1;
         ArrayList<vector> m2;
         ArrayList<vector> matrixOut;
-        String operations[] = { "help", "matrixSum", "matrixProduct", "dotProduct", "orthogonal", "orthonormal" };
+        String operations[] = { "help", "matrixSum", "matrixProduct", "dotProduct", "orthogonal", "orthonormal",
+                "quit" };
         System.out.println("type your operation, type \"help\" for a list of operations");
         boolean inputLoop = true;
         boolean vectorMode;
         while (inputLoop) {
-            switch (sf.nextLine()) {
+            String input = sf.nextLine();
+            switch (input) {
                 case "help":
                     for (String s : operations) {
                         System.out.print("-");
@@ -250,6 +265,7 @@ public class Main {
                     inputLoop = false;
                     break;
             }
+
         }
 
     }
