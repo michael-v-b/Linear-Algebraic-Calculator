@@ -125,19 +125,19 @@ public class Main {
 
     // print matrix in vector format
     static void printMatrixVectorMode(ArrayList<vector> matrix) {
-        System.out.println("Matrix: ");
 
+        System.out.println("Matrix: ");
         // go through matrix as normal
         for (int i = 0; i < matrix.get(0).getSize(); i++) {
 
-            // simplify matrix
-
             for (int j = 0; j < matrix.size(); j++) {
+                // simplify matrix
+                // simplify matrix
                 matrix.get(j).simplify();
                 // if not in the middle add spaces to compensate for coeff
                 // otherwise write coeff
-                if (i != matrix.get(0).getSize() / 2) {
-                    String tempCoeffString = matrix.get(i).coeff.toString();
+                if (i != (matrix.get(i).getSize() / 2)) {
+                    String tempCoeffString = matrix.get(j).coeff.toString();
                     for (int k = 0; k < tempCoeffString.length() + 3; k++) {
                         System.out.print(" ");
                     }
@@ -162,22 +162,25 @@ public class Main {
         }
     }
 
-    // main method
+    // main
+    // method!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public static void main(String args[]) {
-        File inputFile = new File(args[0]);
+
         Scanner sf;
         int tempX;
         int tempY;
 
-        if (args.length == 2) {
-            sf = new Scanner(System.in);
-        } else {
+        if (args.length == 1) {
             try {
+                File inputFile = new File(args[0]);
                 sf = new Scanner(inputFile);
             } catch (FileNotFoundException e) {
                 System.out.println("file not found");
                 sf = new Scanner(System.in);
             }
+
+        } else {
+            sf = new Scanner(System.in);
         }
 
         ArrayList<vector> m1;
@@ -190,6 +193,7 @@ public class Main {
         boolean vectorMode;
         while (inputLoop) {
             String input = sf.nextLine();
+            input.trim();
             switch (input) {
                 case "help":
                     for (String s : operations) {
