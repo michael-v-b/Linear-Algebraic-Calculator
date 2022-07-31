@@ -15,7 +15,6 @@ public class Matrix {
                     // out += matrix[j][k] * matrix2[k][i]
                     out = out.add(matrix1.get(k).vect.get(j).multip(matrix2.get(i).vect.get(k)));
                 }
-                System.out.println(out);
                 output.get(i).vect.add(out);
             }
         }

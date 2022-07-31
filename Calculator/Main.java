@@ -12,14 +12,42 @@ public class Main {
     // INPUT METHODS
     // ==========================================================================================
     static ArrayList<vector> inputMatrix(Scanner sf) {
+
+        ArrayList<vector> matrix;
+        int vectorSize;
+        int vectorNumber;
+        System.out.println("input dimensions(only use integers)");
+        System.out.println("rows: ");
+        vectorSize = sf.nextInt();
+        System.out.println("columns: ");
+        vectorNumber = sf.nextInt();
+
+        matrix = new ArrayList<vector>(vectorNumber);
+        // instantiates matrix
+        for (int i = 0; i < vectorNumber; i++) {
+            matrix.add(new vector(new ArrayList<>(vectorSize)));
+        }
+        System.out.println("input matrix:");
+        // assigns matrix
+        for (int i = 0; i < vectorSize; i++) {
+            System.out.println("input row [" + i + "]:");
+            for (int j = 0; j < vectorNumber; j++) {
+                Rint temp = new Rint(false, sf.nextInt());
+                matrix.get(j).add(temp);
+            }
+        }
+        return matrix;
+
+    }
+
+    // inputMatrix with dimensions
+    static ArrayList<vector> inputMatrix(int x, int y, Scanner sf) {
         System.out.println("input dimensions(only use integers): ");
         ArrayList<vector> matrix;
         int vectorSize;
         int vectorNumber;
-        System.out.println("row: ");
-        vectorSize = sf.nextInt(); // row
-        System.out.println("column: ");
-        vectorNumber = sf.nextInt(); // column
+        vectorSize = x;// row
+        vectorNumber = y; // column
 
         matrix = new ArrayList<vector>(vectorNumber);
         // instantiates matrix
@@ -57,33 +85,6 @@ public class Main {
         }
 
         return output;
-    }
-
-    // inputMatrix with dimensions
-    static ArrayList<vector> inputMatrix(int x, int y, Scanner sf) {
-        System.out.println("input dimensions(only use integers): ");
-        ArrayList<vector> matrix;
-        int vectorSize;
-        int vectorNumber;
-        vectorSize = x;// row
-        vectorNumber = y; // column
-
-        matrix = new ArrayList<vector>(vectorNumber);
-        // instantiates matrix
-        for (int i = 0; i < vectorNumber; i++) {
-            matrix.add(new vector(new ArrayList<>(vectorSize)));
-        }
-        System.out.println("input matrix:");
-        // assigns matrix
-        for (int i = 0; i < vectorSize; i++) {
-            System.out.println("input row [" + i + "]:");
-            for (int j = 0; j < vectorNumber; j++) {
-                Rint temp = new Rint(false, sf.nextInt());
-                matrix.get(j).add(temp);
-            }
-        }
-        return matrix;
-
     }
 
     // input Vector
@@ -168,6 +169,14 @@ public class Main {
     public static void main(String args[]) {
 
         Scanner sf;
+        ArrayList<vector> m1;
+        ArrayList<vector> m2;
+        ArrayList<vector> matrixOut;
+        String operations[] = { "help", "matrixSum", "matrixProduct", "dotProduct", "orthogonal", "orthonormal",
+                "quit" };
+        System.out.println("type your operation, type \"help\" for a list of operations");
+        boolean inputLoop = true;
+        boolean vectorMode;
         int tempX;
         int tempY;
 
@@ -184,14 +193,6 @@ public class Main {
             sf = new Scanner(System.in);
         }
 
-        ArrayList<vector> m1;
-        ArrayList<vector> m2;
-        ArrayList<vector> matrixOut;
-        String operations[] = { "help", "matrixSum", "matrixProduct", "dotProduct", "orthogonal", "orthonormal",
-                "quit" };
-        System.out.println("type your operation, type \"help\" for a list of operations");
-        boolean inputLoop = true;
-        boolean vectorMode;
         while (inputLoop) {
             String input = sf.nextLine();
             input.trim();
@@ -202,16 +203,19 @@ public class Main {
                         System.out.println(s);
                     }
                     break;
+
+                case "printMatrix":
+                    System.out.println("input matrix");
+
+                    m1 = inputMatrix(sf);
+                    vectorMode = askVector(sf);
+                    matrixDecision(vectorMode, m1);
+                    break;
                 case "matrixSum":
                     System.out.println("input 2 matrices");
-                    System.out.println("input dimensions(only use integers): ");
-                    System.out.println("row: ");
-                    tempX = sf.nextInt(); // row
-                    System.out.println("column: ");
-                    tempY = sf.nextInt(); // column
 
-                    m1 = inputMatrix(tempX, tempY, sf);
-                    m2 = inputMatrix(tempX, tempY, sf);
+                    m1 = inputMatrix(sf);
+                    m2 = inputMatrix(sf);
                     matrixOut = Matrix.add(m1, m2);
                     vectorMode = askVector(sf);
                     System.out.println("Sum:");
@@ -220,15 +224,19 @@ public class Main {
 
                 case "matrixProduct":
                     System.out.println("input 2 matrices");
-                    System.out.println("input dimensions(only use integers): ");
-                    System.out.println("row: ");
-                    tempX = sf.nextInt(); // row
-                    System.out.println("column: ");
-                    tempY = sf.nextInt(); // column
-                    System.out.println("input 2 matrices");
 
+                    System.out.println("Matrix 1:");
+                    System.out.println("input dimensions(only use integers)");
+                    System.out.println("rows: ");
+                    tempX = sf.nextInt();
+                    System.out.println("columns: ");
+                    tempY = sf.nextInt();
                     m1 = inputMatrix(tempX, tempY, sf);
-                    m2 = inputMatrix(tempY, tempX, sf);
+                    System.out.println("Matrix 2:");
+                    System.out.println("input dimensions(only use integers)");
+                    System.out.println("columns: ");
+                    tempY = sf.nextInt();
+                    m2 = inputMatrix(tempX, tempY, sf);
                     matrixOut = Matrix.multip(m1, m2);
 
                     vectorMode = askVector(sf);
