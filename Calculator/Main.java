@@ -114,13 +114,14 @@ public class Main {
     // print matrix in output
     static void printMatrix(ArrayList<vector> matrix) {
         System.out.println("Matrix: ");
-        for (int i = 0; i < matrix.get(i).getSize(); i++) {
 
+        for (int i = 0; i < matrix.get(0).getSize(); i++) {
             for (int j = 0; j < matrix.size(); j++) {
                 System.out.print("[" + (matrix.get(j).coeff.multip(matrix.get(j).getIndex(i))) + "]");
             }
             System.out.println("");
         }
+
     }
 
     // print matrix in vector format

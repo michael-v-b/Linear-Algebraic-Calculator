@@ -7,13 +7,15 @@ public class Matrix {
 
         ArrayList<vector> output = new ArrayList<vector>();
         Rint out;
-        for (int i = 0; i < matrix1.get(0).vect.size(); i++) {
+        for (int i = 0; i < matrix2.size(); i++) {
             output.add(new vector());
-            for (int j = 0; j < matrix2.size(); j++) {
+            for (int j = 0; j < matrix1.get(0).vect.size(); j++) {
                 out = new Rint(false, 0);
                 for (int k = 0; k < matrix1.size(); k++) {
-                    out = out.add(matrix1.get(k).vect.get(i).multip(matrix2.get(j).vect.get(k)));
+                    // out += matrix[j][k] * matrix2[k][i]
+                    out = out.add(matrix1.get(k).vect.get(j).multip(matrix2.get(i).vect.get(k)));
                 }
+                System.out.println(out);
                 output.get(i).vect.add(out);
             }
         }
