@@ -40,6 +40,35 @@ public class Main {
 
     }
 
+    static Rint inputRint(Scanner sf) {
+        Rint output;
+        String input = sf.nextLine();
+        int inputNum;
+        int coeffNum;
+        input.trim();
+        /*
+         * 3 possibilities
+         * x
+         * Ra
+         * aRb
+         */
+        if (input.contains("R")) {
+            int tempIndex = input.indexOf("R");
+            if (tempIndex == 0) {
+                inputNum = Integer.parseInt(input.substring(1));
+                output = new Rint(true, inputNum);
+            } else {
+                coeffNum = Integer.parseInt(input.substring(0, tempIndex));
+                inputNum = Integer.parseInt(input.substring(tempIndex + 1));
+                output = new Rint(true, coeffNum, inputNum);
+            }
+        } else {
+            inputNum = Integer.parseInt(input);
+            output = new Rint(false, inputNum);
+        }
+        return output;
+    }
+
     // inputMatrix with dimensions
     static ArrayList<vector> inputMatrix(int x, int y, Scanner sf) {
         System.out.println("input dimensions(only use integers): ");
@@ -171,8 +200,10 @@ public class Main {
         Scanner sf;
         ArrayList<vector> m1;
         ArrayList<vector> m2;
+        Rint r;
         ArrayList<vector> matrixOut;
         String operations[] = { "help", "matrixSum", "matrixProduct", "dotProduct", "orthogonal", "orthonormal",
+                "how to input Rint",
                 "quit" };
         System.out.println("type your operation, type \"help\" for a list of operations");
         boolean inputLoop = true;
@@ -203,6 +234,12 @@ public class Main {
                         System.out.println(s);
                     }
                     break;
+                case "scalar":
+                    System.out.println("input matrix");
+                    m1 = inputMatrix(sf);
+                    System.out.println("input number (if radical see radical format in help");
+                    r = inputRint(sf);
+                    Matrix.scalar(m1, r);
 
                 case "printMatrix":
                     System.out.println("input matrix");

@@ -21,6 +21,12 @@ public class Matrix {
         return output;
     }
 
+    public static void scalar(ArrayList<vector> matrix1, Rint s) {
+        for (int i = 0; i < matrix1.size(); i++) {
+            matrix1.get(i).scalar(s);
+        }
+    }
+
     public static ArrayList<vector> add(ArrayList<vector> matrix1, ArrayList<vector> matrix2) {
         ArrayList<vector> output = new ArrayList<vector>();
 
