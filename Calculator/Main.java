@@ -130,12 +130,36 @@ public class Main {
 
     }
 
+    static boolean continueCalc(Scanner sf) {
+        System.out.println("Continue Calculations? y/n");
+        while (true) {
+            String input = sf.nextLine();
+            switch (input) {
+                case "y":
+                case "Yes":
+                case "Y":
+                case "yes":
+                    return true;
+                case "n":
+                case "No":
+                case "N":
+                case "no":
+                    return false;
+                default:
+                    continue;
+
+            }
+        }
+
+    }
+
     // OUTPUT
     // METHODS=============================================================================================
     // an if statement that decides whether to print a method in vector form or not
     static void matrixDecision(boolean v, ArrayList<vector> matrix) {
         if (v) {
             printMatrixVectorMode(matrix);
+
         } else {
             printMatrix(matrix);
         }
@@ -202,8 +226,10 @@ public class Main {
         ArrayList<vector> m2;
         Rint r;
         ArrayList<vector> matrixOut;
+        boolean cont = false;
+        ArrayList<vector> contMatrix = new ArrayList<vector>();
         String operations[] = { "help", "matrixSum", "matrixProduct", "dotProduct", "orthogonal", "orthonormal",
-                "how to input Rint",
+                "continue",
                 "quit" };
         System.out.println("type your operation, type \"help\" for a list of operations");
         boolean inputLoop = true;
@@ -236,10 +262,27 @@ public class Main {
                     break;
                 case "scalar":
                     System.out.println("input matrix");
-                    m1 = inputMatrix(sf);
+
+                    // if continue
+                    if (cont) {
+                        m1 = contMatrix;
+                    } else {
+                        m1 = inputMatrix(sf);
+                    }
                     System.out.println("input number (if radical see radical format in help");
                     r = inputRint(sf);
                     Matrix.scalar(m1, r);
+                    vectorMode = askVector(sf);
+                    matrixDecision(vectorMode, m1);
+
+                    // continue calculatrions
+                    cont = continueCalc(sf);
+                    if (cont) {
+                        contMatrix = m1;
+                    } else {
+                        contMatrix = null;
+                    }
+                    break;
 
                 case "printMatrix":
                     System.out.println("input matrix");
@@ -247,6 +290,13 @@ public class Main {
                     m1 = inputMatrix(sf);
                     vectorMode = askVector(sf);
                     matrixDecision(vectorMode, m1);
+                    // continue calculatrions
+                    cont = continueCalc(sf);
+                    if (cont) {
+                        contMatrix = m1;
+                    } else {
+                        contMatrix = null;
+                    }
                     break;
                 case "matrixSum":
                     System.out.println("input 2 matrices");
@@ -257,6 +307,14 @@ public class Main {
                     vectorMode = askVector(sf);
                     System.out.println("Sum:");
                     matrixDecision(vectorMode, matrixOut);
+
+                    // continue calculatrions
+                    cont = continueCalc(sf);
+                    if (cont) {
+                        contMatrix = matrixOut;
+                    } else {
+                        contMatrix = null;
+                    }
                     break;
 
                 case "matrixProduct":
@@ -279,8 +337,15 @@ public class Main {
                     vectorMode = askVector(sf);
                     System.out.println("Product:");
                     matrixDecision(vectorMode, matrixOut);
-
+                    // continue calculatrions
+                    cont = continueCalc(sf);
+                    if (cont) {
+                        contMatrix = matrixOut;
+                    } else {
+                        contMatrix = null;
+                    }
                     break;
+
                 case "orthogonal":
                     m1 = inputMatrix(sf);
                     printMatrix(m1);
@@ -288,6 +353,14 @@ public class Main {
                     vectorMode = askVector(sf);
                     System.out.println("Orthogonal :");
                     matrixDecision(vectorMode, matrixOut);
+
+                    // continue calculatrions
+                    cont = continueCalc(sf);
+                    if (cont) {
+                        contMatrix = matrixOut;
+                    } else {
+                        contMatrix = null;
+                    }
                     break;
                 case "orthonormal":
                     m1 = inputMatrix(sf);
@@ -296,7 +369,15 @@ public class Main {
                     vectorMode = askVector(sf);
                     System.out.println("Orthonormal Set:");
                     matrixDecision(vectorMode, matrixOut);
+                    // continue calculatrions
+                    cont = continueCalc(sf);
+                    if (cont) {
+                        contMatrix = matrixOut;
+                    } else {
+                        contMatrix = null;
+                    }
                     break;
+
                 case "dotProduct":
                     vector v1 = inputVector(sf);
                     vector v2 = inputVector(sf);
@@ -308,7 +389,9 @@ public class Main {
                     m1 = inputMatrix(sf);
                     ArrayList<ArrayList<Fraction>> RREF = Matrix.RREF(m1);
                     printMatrixF(RREF);
+                    // continue rref
                     break;
+
                 case "diagonlize":
                     break;
                 case "quit":

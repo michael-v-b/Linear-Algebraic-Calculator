@@ -143,6 +143,10 @@ public class Fraction {
         return output;
     }
 
+    public float value() {
+        return (float) up.value / down.value;
+    }
+
     public String toString() {
         switch (down.value) {
             case 1:
